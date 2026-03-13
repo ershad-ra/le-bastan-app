@@ -7,19 +7,17 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
     };
 
     return (
-        {/* ADDED onClick={toggleMenu} to the dark background overlay */}
         <div 
             className={`fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[200] flex justify-end transition-all duration-300 ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
             onClick={toggleMenu}
         >
-            {/* ADDED onClick={(e) => e.stopPropagation()} so clicking the menu itself doesn't close it */}
             <div 
                 className="bg-white w-4/5 max-w-sm h-full shadow-2xl p-6 flex flex-col overflow-y-auto transform transition-transform duration-300 pb-12"
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-4">
                     <h3 className="font-bold text-xl text-blue-900 italic">Le Bastan 202</h3>
-                    <button onClick={toggleMenu} className="text-slate-400 hover:text-slate-600 bg-slate-100 w-8 h-8 rounded-full flex items-center justify-center text-xl transition-colors">&times;</button>
+                    <button onClick={toggleMenu} className="text-slate-400 hover:text-slate-600 bg-slate-100 w-8 h-8 rounded-full flex items-center justify-center text-xl transition-colors">×</button>
                 </div>
 
                 <div className="space-y-6">

@@ -3,7 +3,6 @@ import { AppContext } from '../../context/AppContext';
 import { fetchWeather } from '../../utils/weatherApi';
 import Translate from './Translate';
 
-// 1. Dynamic Icon Helper
 const getWeatherIcon = (code) => {
     const iconMap = {
         '01d': 'fa-sun text-yellow-300', '01n': 'fa-moon text-blue-200',
@@ -19,44 +18,25 @@ const getWeatherIcon = (code) => {
     return iconMap[code] || 'fa-cloud';
 };
 
-// 2. NEW: Dynamic Background Color Helper based on Weather Code
 const getWeatherTheme = (code) => {
     const themes = {
-        // Clear Sky (Sunny / Night)
-        '01d': 'from-blue-500 to-sky-400',
-        '01n': 'from-indigo-900 to-blue-900',
-        // Few Clouds
-        '02d': 'from-blue-400 to-sky-300',
-        '02n': 'from-slate-800 to-indigo-900',
-        // Scattered / Broken Clouds (Greyish)
-        '03d': 'from-slate-400 to-slate-300',
-        '04d': 'from-slate-500 to-slate-400',
-        '03n': 'from-slate-800 to-slate-700',
-        '04n': 'from-slate-900 to-slate-800',
-        // Rain
-        '09d': 'from-blue-700 to-slate-500',
-        '10d': 'from-blue-600 to-slate-400',
-        '09n': 'from-slate-900 to-blue-900',
-        '10n': 'from-slate-800 to-blue-900',
-        // Thunderstorm
-        '11d': 'from-slate-700 to-purple-800',
-        '11n': 'from-slate-900 to-purple-900',
-        // Snow (Icy Cyan)
-        '13d': 'from-cyan-400 to-blue-300',
-        '13n': 'from-blue-800 to-cyan-700',
-        // Mist/Fog
-        '50d': 'from-gray-400 to-gray-300',
-        '50n': 'from-slate-700 to-gray-600'
+        '01d': 'from-blue-500 to-sky-400', '01n': 'from-indigo-900 to-blue-900',
+        '02d': 'from-blue-400 to-sky-300', '02n': 'from-slate-800 to-indigo-900',
+        '03d': 'from-slate-400 to-slate-300', '04d': 'from-slate-500 to-slate-400',
+        '03n': 'from-slate-800 to-slate-700', '04n': 'from-slate-900 to-slate-800',
+        '09d': 'from-blue-700 to-slate-500', '10d': 'from-blue-600 to-slate-400',
+        '09n': 'from-slate-900 to-blue-900', '10n': 'from-slate-800 to-blue-900',
+        '11d': 'from-slate-700 to-purple-800', '11n': 'from-slate-900 to-purple-900',
+        '13d': 'from-cyan-400 to-blue-300', '13n': 'from-blue-800 to-cyan-700',
+        '50d': 'from-gray-400 to-gray-300', '50n': 'from-slate-700 to-gray-600'
     };
-    return themes[code] || 'from-blue-600 to-cyan-500'; // Default fallback
+    return themes[code] || 'from-blue-600 to-cyan-500'; 
 };
 
-// 3. The highly visual N-PY Banner Button
+// FIX: Replaced local '/outside-the-apartment.jpeg' with absolute URL to prevent build crash
 const VisualNpyLink = () => (
     <a href="https://www.n-py.com/fr/grand-tourmalet" target="_blank" rel="noreferrer" className="group relative block w-full mt-6 rounded-2xl overflow-hidden shadow-md border border-white/20 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 bg-slate-900">
-        {/* Animated Background Image */}
-        <div className="absolute inset-0 bg-[url('/outside-the-apartment.jpeg')] bg-cover bg-center opacity-50 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 ease-out"></div>
-        {/* Color Overlay */}
+        <div className="absolute inset-0 bg-[url('https://assets.persys.fr/BD/livret-d-accueil/images/outside-the-apartment.jpeg')] bg-cover bg-center opacity-50 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 ease-out"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-transparent"></div>
         
         <div className="relative z-10 p-4 sm:p-5 flex items-center justify-between">
@@ -112,7 +92,6 @@ export default function WeatherWidget() {
         <div id="meteo-box" className={`mb-8 rounded-3xl shadow-xl overflow-hidden text-white border border-white/20 transition-all duration-700 bg-gradient-to-br ${dynamicGradient}`}>
             
             <div className="relative z-10 p-6 sm:p-8">
-                {/* Header */}
                 <div className="flex justify-between items-start mb-6">
                     <div>
                         <h3 className="text-xl sm:text-2xl font-black tracking-tight flex items-center drop-shadow-md">
@@ -129,7 +108,6 @@ export default function WeatherWidget() {
                     </div>
                 </div>
 
-                {/* Sub-info: Snow, Sunrise, Sunset */}
                 <div className="flex flex-wrap gap-2 sm:gap-3 mb-8">
                     {isSnowing && (
                         <div className="bg-white/30 backdrop-blur-md border border-white/40 px-3 py-1.5 rounded-full text-xs font-bold flex items-center shadow-sm text-slate-900">
@@ -148,7 +126,6 @@ export default function WeatherWidget() {
                     </div>
                 </div>
 
-                {/* Forecast Grid */}
                 <div className="border-t border-white/20 pt-6">
                     <p className="text-[10px] uppercase tracking-widest font-bold text-white/70 mb-4 drop-shadow-sm">
                         <Translate fr="Prévisions" en="Forecast" es="Pronóstico" de="Vorhersage" />
@@ -164,7 +141,6 @@ export default function WeatherWidget() {
                     </div>
                 </div>
 
-                {/* Interactive Visual Webcams Button */}
                 <VisualNpyLink />
 
             </div>
