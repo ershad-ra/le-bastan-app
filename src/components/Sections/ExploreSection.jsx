@@ -1,4 +1,5 @@
 import Translate from '../UI/Translate';
+import WeatherWidget from '../UI/WeatherWidget';
 
 export default function ExploreSection() {
     return (
@@ -8,32 +9,9 @@ export default function ExploreSection() {
                     <Translate fr="Explorer Barèges" en="Explore Barèges" es="Explorar Barèges" de="Barèges erkunden" />
                 </h2>
                 
-                <a href="https://www.n-py.com/fr/grand-tourmalet" target="_blank" rel="noreferrer" className="block mb-8 group">
-                    <div className="relative overflow-hidden rounded-2xl shadow-md border border-slate-200 bg-gradient-to-r from-blue-600 to-cyan-500 text-white p-6 sm:p-8 flex items-center justify-between transition-transform duration-300 group-hover:-translate-y-1 group-hover:shadow-lg">
-                        <i className="fas fa-cloud-sun-rain absolute -right-4 -bottom-4 text-8xl opacity-20 group-hover:scale-110 transition-transform duration-500"></i>
-                        <div className="relative z-10">
-                            <p className="text-blue-100 text-xs font-bold uppercase tracking-wider mb-1">
-                                <Translate fr="En direct du Grand Tourmalet" en="Live from Grand Tourmalet" es="En vivo desde Grand Tourmalet" de="Live vom Grand Tourmalet" />
-                            </p>
-                            <h3 className="text-xl sm:text-2xl font-bold mb-2 flex items-center">
-                                <Translate fr="Météo, Webcams & Pistes" en="Weather, Webcams & Slopes" es="Clima, Webcams y Pistas" de="Wetter, Webcams & Pisten" />
-                            </h3>
-                            <p className="text-sm text-blue-50 max-w-sm">
-                                <Translate 
-                                    fr="Consultez les conditions d'enneigement et le temps en direct sur le domaine." 
-                                    en="Check snow conditions and live weather on the domain." 
-                                    es="Consulta las condiciones de nieve y el clima en vivo en el dominio." 
-                                    de="Überprüfen Sie die Schneebedingungen und das Live-Wetter im Gebiet." 
-                                />
-                            </p>
-                        </div>
-                        <div className="relative z-10 bg-white/20 p-4 rounded-full backdrop-blur-sm hidden sm:block group-hover:bg-white/30 transition-colors">
-                            <i className="fas fa-external-link-alt text-xl"></i>
-                        </div>
-                    </div>
-                </a>
+                {/* This will render the Live Weather OR the fallback static N-PY block */}
+                <WeatherWidget />
 
-                {/* FIXED BORDER HERE */}
                 <div className="mb-8">
                     <img src="https://assets.persys.fr/BD/livret-d-accueil/images/plan-du-centre-ville.png" className="w-full h-auto rounded-2xl shadow-sm border border-slate-200" alt="Ville" />
                 </div>

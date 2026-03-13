@@ -8,7 +8,7 @@ export default function AmenitiesSection() {
         "https://assets.persys.fr/BD/livret-d-accueil/images/inside-the-apartment-2.jpeg",
         "https://assets.persys.fr/BD/livret-d-accueil/images/inside-the-apartment-3.jpeg",
         "https://assets.persys.fr/BD/livret-d-accueil/images/inside-the-apartment-4.jpeg",
-        "https://assets.persys.fr/BD/livret-d-accueil/images/outside-the-apartment.jpeg"
+        "https://assets.persys.fr/BD/livret-d-accueil/images/outside-the-apartment.jpeg" // Fixed: Using your full URL!
     ];
 
     return (
@@ -52,7 +52,7 @@ export default function AmenitiesSection() {
                         <ul className="text-sm space-y-2 text-slate-600 list-none">
                             <li><i className="fas fa-tv text-slate-400 w-5 text-center mr-1"></i> <Translate fr="Télévision" en="Television" es="Televisión" de="Fernseher" /></li>
                             <li><i className="fas fa-dice text-slate-400 w-5 text-center mr-1"></i> <Translate fr="Livres, jeux & jouets" en="Books, games & toys" es="Libros, juegos y juguetes" de="Bücher, Spiele & Spielzeug" /></li>
-                            <li><i className="fas fa-map-location-dot text-slate-400 w-5 text-center mr-1"></i> <Translate fr="Brochures loisirs & activités" en="Leisure & activity brochures" es="Folletos de ocio y actividades" de="Freizeit-Broschüren" /></li>
+                            <li><i className="fas fa-map-location-dot text-slate-400 w-5 text-center mr-1"></i> <Translate fr="Brochures loisirs & activités" en="Leisure & activity brochures" es="Folletos de ocio y activités" de="Freizeit-Broschüren" /></li>
                         </ul>
                     </div>
 
@@ -93,7 +93,7 @@ export default function AmenitiesSection() {
                         </div>
                     </div>
 
-                    {/* Infos Techniques - FIXED BORDERS HERE */}
+                    {/* Infos Techniques */}
                     <div className="bg-slate-100 p-5 rounded-2xl border border-slate-200 md:col-span-2 transition-colors duration-300">
                         <h3 className="font-bold text-slate-800 mb-4 flex items-center text-sm"><i className="fas fa-tools mr-2 text-slate-500"></i><Translate fr="INFOS TECHNIQUES" en="TECHNICAL INFO" es="INFO TÉCNICA" de="TECHNIK-INFOS" /></h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">

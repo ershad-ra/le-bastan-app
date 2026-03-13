@@ -58,7 +58,11 @@ export default function HomeSection() {
                         <div className="w-10 h-10 rounded-full bg-blue-200 overflow-hidden shrink-0 border-2 border-white shadow-sm flex items-center justify-center text-blue-600">
                             <i className="fas fa-user text-xl"></i>
                         </div>
-                        <AudioPlayer />
+                        <AudioPlayer 
+                            src="https://assets.persys.fr/BD/livret-d-accueil/audio/L_hospitalite_millimetree_de_l_appartement_202.mp3" 
+                            title={<Translate fr="Mot de bienvenue" en="Welcome word" es="Palabras de bienvenida" de="Willkommenswort" />} 
+                            icon="fa-microphone"
+                        />
                     </div>
                 </div>
             </div>
@@ -73,16 +77,31 @@ export default function HomeSection() {
                     <p className="font-bold text-lg">65120 Barèges, France</p>
                 </div>
                 
-                {/* FIXED BORDER HERE */}
                 <div className="mb-6">
                     <img src="https://assets.persys.fr/BD/livret-d-accueil/images/plan-de-la-residence.png" className="w-full h-auto rounded-2xl border border-slate-200 shadow-sm" alt="Plan" />
                 </div>
                 
-                <div className="rounded-2xl overflow-hidden h-96 border border-slate-200 shadow-inner bg-slate-100">
-                    <iframe title="Map" width="100%" height="100%" style={{ border: 0 }} loading="lazy" allowFullScreen referrerPolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=13+promenade+horizontale,+65120+Bar%C3%A8ges,+France&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
+                {/* UPDATED: iFrame now points directly to the GPS coordinates */}
+                <div className="rounded-2xl overflow-hidden h-96 border border-slate-200 shadow-inner bg-slate-100 relative">
+                    <iframe 
+                        title="Map" 
+                        width="100%" 
+                        height="100%" 
+                        style={{ border: 0 }} 
+                        loading="lazy" 
+                        allowFullScreen 
+                        referrerPolicy="no-referrer-when-downgrade" 
+                        src="https://maps.google.com/maps?q=42.895292,0.062885&t=&z=17&ie=UTF8&iwloc=&output=embed">
+                    </iframe>
                 </div>
                 <div className="mt-6 text-center">
-                    <a href="https://maps.google.com/?q=13+promenade+horizontale,+65120+Bar%C3%A8ges,+France" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all shadow-xl hover:scale-105 active:scale-95">
+                    {/* UPDATED: Directions link now points to the GPS coordinates */}
+                    <a 
+                        href="https://www.google.com/maps/dir/?api=1&destination=42.895292,0.062885" 
+                        target="_blank" 
+                        rel="noreferrer" 
+                        className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all shadow-xl hover:scale-105 active:scale-95"
+                    >
                         <i className="fas fa-directions text-2xl"></i>
                         <Translate fr="Y aller (Google Maps)" en="Go there (Google Maps)" es="Ir allí (Google Maps)" de="Wegbeschreibung (Google Maps)" />
                     </a>

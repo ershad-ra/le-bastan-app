@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Navbar from './components/Layout/Navbar';
 import MobileMenu from './components/Layout/MobileMenu';
 import Footer from './components/Layout/Footer';
-import SmartToast from './components/UI/SmartToast'; // <-- The new import
+import SmartToast from './components/UI/SmartToast';
 
 // Sections
 import Hero from './components/Sections/Hero';
@@ -11,6 +11,7 @@ import LogisticsSection from './components/Sections/LogisticsSection';
 import AmenitiesSection from './components/Sections/AmenitiesSection';
 import HeatingSection from './components/Sections/HeatingSection';
 import EntertainmentSection from './components/Sections/EntertainmentSection';
+import PodcastSection from './components/Sections/PodcastSection'; // NEW IMPORT
 import ExploreSection from './components/Sections/ExploreSection';
 import RulesSection from './components/Sections/RulesSection';
 import DocumentsSection from './components/Sections/DocumentsSection';
@@ -25,7 +26,6 @@ export default function App() {
       <Hero />
       <Navbar toggleMenu={() => setIsMobileMenuOpen(true)} />
       
-      {/* The Smart Toast lives here! */}
       <SmartToast />
 
       <main className="max-w-4xl mx-auto p-4 md:p-8 space-y-12">
@@ -34,6 +34,7 @@ export default function App() {
         <AmenitiesSection />
         <HeatingSection />
         <EntertainmentSection />
+        <PodcastSection /> {/* RENDERED HERE */}
         <ExploreSection />
         <RulesSection />
         <DocumentsSection />

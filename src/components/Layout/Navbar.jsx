@@ -6,7 +6,6 @@ export default function Navbar({ toggleMenu }) {
     const { language, setLanguage, theme, toggleTheme } = useContext(AppContext);
     const [activeSection, setActiveSection] = useState('accueil');
 
-    // Scroll spy logic
     useEffect(() => {
         const handleScroll = () => {
             const sections = document.querySelectorAll('section');
@@ -26,16 +25,54 @@ export default function Navbar({ toggleMenu }) {
         document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
     };
 
-    const navItems = [
-        { id: 'accueil', fr: 'Accueil', en: 'Home', es: 'Inicio', de: 'Start' },
-        { id: 'logistique', fr: 'Arrivée/Départ', en: 'Check-in/out', es: 'Llegada/Salida', de: 'An-/Abreise' },
-        { id: 'logement', fr: 'Équipements', en: 'Amenities', es: 'Equipamiento', de: 'Ausstattung' },
-        { id: 'chauffage', fr: 'Chauffage', en: 'Heating', es: 'Calefacción', de: 'Heizung' },
-        { id: 'divertissement', fr: 'TV & Wifi', en: 'TV & Wifi', es: 'TV y Wifi', de: 'TV & WLAN' },
-        { id: 'autour', fr: 'Explorer Barèges', en: 'Explore Barèges', es: 'Explorar Barèges', de: 'Barèges erkunden' },
-        { id: 'consignes', fr: 'Modalités de séjour', en: 'Stay Conditions', es: 'Condiciones de estancia', de: 'Aufenthaltsbedingungen' },
-        { id: 'documents', fr: 'Documents', en: 'Docs', es: 'Documentos', de: 'Dokumente' },
-        { id: 'contacts', fr: 'Contacts', en: 'Contacts', es: 'Contactos', de: 'Kontakt' },
+    const isGroupActive = (sections) => sections.includes(activeSection);
+
+    // Grouping the menu items
+    const menuGroups = [
+        {
+            id: 'accueil',
+            type: 'link',
+            fr: 'Accueil', en: 'Home', es: 'Inicio', de: 'Start',
+            sections: ['accueil']
+        },
+        {
+            id: 'sejour',
+            type: 'dropdown',
+            fr: 'Le Séjour', en: 'The Stay', es: 'La Estancia', de: 'Der Aufenthalt',
+            sections: ['logistique', 'consignes', 'documents'],
+            items: [
+                { id: 'logistique', icon: 'fa-clock', fr: 'Arrivée/Départ', en: 'Check-in/out', es: 'Llegada/Salida', de: 'An-/Abreise' },
+                { id: 'consignes', icon: 'fa-hand-holding-heart', fr: 'Règles', en: 'Rules', es: 'Reglas', de: 'Regeln' },
+                { id: 'documents', icon: 'fa-file-pdf', fr: 'Documents', en: 'Docs', es: 'Documentos', de: 'Dokumente' }
+            ]
+        },
+        {
+            id: 'logement',
+            type: 'dropdown',
+            fr: 'L\'Appartement', en: 'Apartment', es: 'Apartamento', de: 'Wohnung',
+            sections: ['logement', 'chauffage', 'divertissement'],
+            items: [
+                { id: 'logement', icon: 'fa-bed', fr: 'Équipements', en: 'Amenities', es: 'Equipamiento', de: 'Ausstattung' },
+                { id: 'chauffage', icon: 'fa-thermometer-half', fr: 'Chauffage', en: 'Heating', es: 'Calefacción', de: 'Heizung' },
+                { id: 'divertissement', icon: 'fa-tv', fr: 'TV & Wifi', en: 'TV & Wifi', es: 'TV y Wifi', de: 'TV & WLAN' }
+            ]
+        },
+        {
+            id: 'decouverte',
+            type: 'dropdown',
+            fr: 'Découverte', en: 'Discover', es: 'Descubrir', de: 'Entdecken',
+            sections: ['podcasts', 'autour'],
+            items: [
+                { id: 'podcasts', icon: 'fa-headphones', fr: 'Podcasts', en: 'Podcasts', es: 'Podcasts', de: 'Podcasts' },
+                { id: 'autour', icon: 'fa-mountain', fr: 'Barèges', en: 'Barèges', es: 'Barèges', de: 'Barèges' }
+            ]
+        },
+        {
+            id: 'contacts',
+            type: 'link',
+            fr: 'Contacts', en: 'Contacts', es: 'Contactos', de: 'Kontakt',
+            sections: ['contacts']
+        }
     ];
 
     return (
@@ -58,16 +95,47 @@ export default function Navbar({ toggleMenu }) {
                     </button>
                 </div>
             </div>
-            <div className="hidden sm:flex overflow-x-auto no-scrollbar justify-start p-3 gap-2 max-w-6xl mx-auto px-4">
-                {navItems.map((item) => (
-                    <button 
-                        key={item.id} 
-                        onClick={() => scrollTo(item.id)} 
-                        className={`nav-btn px-5 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition-all ${activeSection === item.id ? 'active-nav-btn' : 'text-slate-600 hover:bg-slate-100'}`}
-                    >
-                        <Translate fr={item.fr} en={item.en} es={item.es} de={item.de} />
-                    </button>
-                ))}
+            
+            {/* Desktop Navigation (Grouped) */}
+            <div className="hidden sm:flex justify-center p-3 gap-2 max-w-6xl mx-auto px-4">
+                {menuGroups.map((group) => {
+                    const active = isGroupActive(group.sections);
+                    
+                    if (group.type === 'link') {
+                        return (
+                            <button 
+                                key={group.id} 
+                                onClick={() => scrollTo(group.id)} 
+                                className={`px-5 py-2 rounded-full font-semibold text-sm transition-all ${active ? 'active-nav-btn' : 'text-slate-600 hover:bg-slate-100'}`}
+                            >
+                                <Translate fr={group.fr} en={group.en} es={group.es} de={group.de} />
+                            </button>
+                        );
+                    }
+
+                    return (
+                        <div key={group.id} className="relative group z-50">
+                            <button className={`px-5 py-2 rounded-full font-semibold text-sm transition-all flex items-center gap-2 ${active ? 'active-nav-btn' : 'text-slate-600 hover:bg-slate-100'}`}>
+                                <Translate fr={group.fr} en={group.en} es={group.es} de={group.de} />
+                                <i className="fas fa-chevron-down text-xs opacity-70"></i>
+                            </button>
+                            
+                            {/* Dropdown Menu */}
+                            <div className="absolute left-1/2 transform -translate-x-1/2 top-full mt-2 w-48 bg-white border border-slate-200 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
+                                {group.items.map(item => (
+                                    <button 
+                                        key={item.id}
+                                        onClick={() => scrollTo(item.id)}
+                                        className={`w-full text-left px-4 py-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-700 transition-colors flex items-center gap-3 ${activeSection === item.id ? 'bg-slate-50 text-blue-600' : 'text-slate-700'}`}
+                                    >
+                                        <i className={`fas ${item.icon} w-4 text-center text-slate-400`}></i>
+                                        <Translate fr={item.fr} en={item.en} es={item.es} de={item.de} />
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
         </nav>
     );
