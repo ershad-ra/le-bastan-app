@@ -1,46 +1,64 @@
 const API_KEY = '67bdf3399c6447c6570faece590c12b1';
 
-// Using exactly Luz-Saint-Sauveur without FR as requested
-const CITY = 'Luz-Saint-Sauveur';
+// Coordonnées GPS exactes de l'appartement (Le Bastan 202, Barèges)
+const LAT = '42.895292';
+const LON = '0.062885';
 
 export const fetchWeather = async (lang = 'fr') => {
-    // Changed the cache key to 'v4' to force your browser to clear the old broken data
-    const cacheKey = `weatherCache_v4_${lang}`;
+    // Cache v9 pour forcer le retour à Barèges
+    const cacheKey = `weatherCache_onecall_v9_${lang}`;
     const cached = localStorage.getItem(cacheKey);
     
     if (cached) {
         const parsed = JSON.parse(cached);
-        // Cache for 1 hour
         if (Date.now() - parsed.timestamp < 3600000) {
             return parsed.data;
         }
     }
 
     try {
-        const [currentRes, forecastRes] = await Promise.all([
-            // Switched back to ?q=CITY instead of lat/lon
-            fetch(`https://api.openweathermap.org/data/2.5/weather?q=${CITY}&units=metric&appid=${API_KEY}&lang=${lang}`),
-            fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${CITY}&units=metric&appid=${API_KEY}&lang=${lang}`)
-        ]);
+        const response = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${LAT}&lon=${LON}&exclude=minutely,alerts&units=metric&appid=${API_KEY}&lang=${lang}`);
 
-        if (!currentRes.ok || !forecastRes.ok) {
-            console.error("API Error: Please check if your API key is fully activated (can take 2 hours).");
-            throw new Error("API Fetch failed");
+        if (!response.ok) {
+            throw new Error("One Call API Fetch failed.");
         }
 
-        const current = await currentRes.json();
-        const forecast = await forecastRes.json();
-
-        // Safe forecast processing: Grab 1 reading per day (jumping 8 periods = 24 hours)
-        // We start at index 4 so it grabs the forecast for roughly the middle of the day
-        const dailyForecast = forecast.list.filter((_, index) => index % 8 === 4).slice(0, 4);
+        const oneCallData = await response.json();
 
         const data = {
-            current: current,
-            forecast: dailyForecast
+            current: {
+                weather: oneCallData.current.weather,
+                main: { 
+                    temp: oneCallData.current.temp,
+                    feels_like: oneCallData.current.feels_like,
+                    humidity: oneCallData.current.humidity
+                },
+                wind: { speed: oneCallData.current.wind_speed },
+                sys: {
+                    sunrise: oneCallData.current.sunrise,
+                    sunset: oneCallData.current.sunset
+                },
+                snow: oneCallData.current.snow || null,
+                today_min: oneCallData.daily[0].temp.min,
+                today_max: oneCallData.daily[0].temp.max
+            },
+            hourly: oneCallData.hourly.slice(1, 25).map(hour => ({
+                dt: hour.dt,
+                temp: hour.temp,
+                weather: hour.weather,
+                pop: hour.pop
+            })),
+            forecast: oneCallData.daily.slice(1, 6).map(day => ({
+                dt: day.dt,
+                weather: day.weather,
+                main: { 
+                    temp_max: day.temp.max,
+                    temp_min: day.temp.min
+                },
+                pop: day.pop
+            }))
         };
 
-        // Save successful fetch to local storage
         localStorage.setItem(cacheKey, JSON.stringify({
             timestamp: Date.now(),
             data: data
@@ -48,7 +66,7 @@ export const fetchWeather = async (lang = 'fr') => {
 
         return data;
     } catch (error) {
-        console.error("Error fetching weather:", error);
-        return null; // Triggers the fallback UI
+        console.error("Error fetching One Call weather:", error);
+        return null;
     }
 };

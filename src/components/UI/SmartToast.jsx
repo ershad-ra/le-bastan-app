@@ -94,18 +94,19 @@ export default function SmartToast() {
 
     return (
         <div className={`fixed bottom-24 left-1/2 transform -translate-x-1/2 z-[100] transition-all duration-500 ease-out w-[95%] max-w-md ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0 pointer-events-none'}`}>
+            {/* The padding here (p-3 sm:p-4) defines the height, keeping it a bit taller without squeezing the content */}
             <div 
-                className={`${currentToast.bgColor} backdrop-blur-md p-2 sm:p-3 rounded-[1.25rem] shadow-2xl border flex items-center justify-between gap-2 sm:gap-3 cursor-pointer transition-colors duration-500`} 
+                className={`${currentToast.bgColor} backdrop-blur-md p-3 sm:p-4 rounded-2xl shadow-2xl border flex items-center justify-between gap-3 cursor-pointer transition-colors duration-500`} 
                 onClick={handleToastClick}
             >
-                {/* Icône plus petite */}
-                <div className={`${currentToast.iconColor} w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0 transition-colors duration-500 shadow-inner ml-1`}>
-                    <i className={`fas ${currentToast.icon} text-sm sm:text-base animate-pulse`}></i>
+                {/* Original smaller icon size */}
+                <div className={`${currentToast.iconColor} w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-colors duration-500 shadow-inner ml-1`}>
+                    <i className={`fas ${currentToast.icon} text-base animate-pulse`}></i>
                 </div>
                 
-                {/* Textes ajustés */}
+                {/* Original elegant font sizes */}
                 <div className={`flex-1 transition-opacity duration-300 ${fade ? 'opacity-0' : 'opacity-100'}`}>
-                    <p className="text-sm sm:text-[15px] font-bold text-slate-800 leading-tight mb-0.5">
+                    <p className="text-sm font-bold text-slate-800 leading-tight mb-0.5">
                         <Translate fr={currentToast.title.fr} en={currentToast.title.en} es={currentToast.title.es} de={currentToast.title.de} />
                     </p>
                     <p className="text-[11px] sm:text-xs text-slate-600 font-medium">
@@ -113,15 +114,15 @@ export default function SmartToast() {
                     </p>
                 </div>
 
-                {/* Navigation: Boutons ronds gauche/droite et bouton fermer */}
-                <div className="flex items-center gap-1 pl-1 border-l border-slate-300/50">
-                    <button onClick={prevToast} className="text-slate-500 hover:text-slate-800 w-7 h-7 flex items-center justify-center bg-white/60 rounded-full hover:bg-white transition-colors shadow-sm" aria-label="Previous notification">
+                {/* Circular navigation buttons */}
+                <div className="flex items-center gap-1 sm:gap-1.5 pl-2 border-l border-slate-300/50 shrink-0">
+                    <button onClick={prevToast} className="text-slate-500 hover:text-slate-800 w-8 h-8 flex items-center justify-center bg-white/60 rounded-full hover:bg-white transition-colors shadow-sm" aria-label="Previous notification">
                         <i className="fas fa-chevron-left text-[10px]"></i>
                     </button>
-                    <button onClick={nextToast} className="text-slate-500 hover:text-slate-800 w-7 h-7 flex items-center justify-center bg-white/60 rounded-full hover:bg-white transition-colors shadow-sm" aria-label="Next notification">
+                    <button onClick={nextToast} className="text-slate-500 hover:text-slate-800 w-8 h-8 flex items-center justify-center bg-white/60 rounded-full hover:bg-white transition-colors shadow-sm" aria-label="Next notification">
                         <i className="fas fa-chevron-right text-[10px]"></i>
                     </button>
-                    <button onClick={(e) => { e.stopPropagation(); setIsVisible(false); }} className="text-slate-500 hover:text-slate-900 w-7 h-7 flex items-center justify-center rounded-full bg-white/60 hover:bg-white shadow-sm transition-colors ml-1" aria-label="Close">
+                    <button onClick={(e) => { e.stopPropagation(); setIsVisible(false); }} className="text-slate-500 hover:text-slate-900 w-8 h-8 flex items-center justify-center rounded-full bg-white/60 hover:bg-white shadow-sm transition-colors ml-1" aria-label="Close">
                         <i className="fas fa-times text-xs"></i>
                     </button>
                 </div>
