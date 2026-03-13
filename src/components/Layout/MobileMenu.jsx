@@ -36,7 +36,7 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
                             <i className="fas fa-clock mr-3 text-blue-400 w-5 text-center"></i><Translate fr="Arrivée/Départ" en="Check-in/out" es="Llegada/Salida" de="An-/Abreise" />
                         </button>
                         <button onClick={() => scrollTo('consignes')} className="text-left py-2.5 px-4 rounded-xl hover:bg-slate-50 font-semibold text-slate-700">
-                            <i className="fas fa-hand-holding-heart mr-3 text-blue-400 w-5 text-center"></i><Translate fr="Règles de séjour" en="Stay rules" es="Reglas de estancia" de="Aufenthaltsregeln" />
+                            <i className="fas fa-hand-holding-heart mr-3 text-blue-400 w-5 text-center"></i><Translate fr="Modalités de séjour" en="Stay conditions" es="Condiciones de estancia" de="Aufenthaltsbedingungen" />
                         </button>
                         <button onClick={() => scrollTo('documents')} className="text-left py-2.5 px-4 rounded-xl hover:bg-slate-50 font-semibold text-slate-700">
                             <i className="fas fa-file-pdf mr-3 text-blue-400 w-5 text-center"></i><Translate fr="Documents" en="Docs" es="Documentos" de="Dokumente" />

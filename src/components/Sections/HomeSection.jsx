@@ -81,7 +81,6 @@ export default function HomeSection() {
                     <img src="https://assets.persys.fr/BD/livret-d-accueil/images/plan-de-la-residence.png" className="w-full h-auto rounded-2xl border border-slate-200 shadow-sm" alt="Plan" />
                 </div>
                 
-                {/* UPDATED: iFrame now points directly to the GPS coordinates */}
                 <div className="rounded-2xl overflow-hidden h-96 border border-slate-200 shadow-inner bg-slate-100 relative">
                     <iframe 
                         title="Map" 
@@ -91,21 +90,49 @@ export default function HomeSection() {
                         loading="lazy" 
                         allowFullScreen 
                         referrerPolicy="no-referrer-when-downgrade" 
-                        src="https://maps.google.com/maps?q=42.895292,0.062885&t=&z=17&ie=UTF8&iwloc=&output=embed">
+                        src="https://maps.google.com/maps?q=42.895292,0.062885&t=&z=16&ie=UTF8&iwloc=&output=embed">
                     </iframe>
                 </div>
-                <div className="mt-6 text-center">
-                    {/* UPDATED: Directions link now points to the GPS coordinates */}
-                    <a 
-                        href="https://www.google.com/maps/dir/?api=1&destination=42.895292,0.062885" 
-                        target="_blank" 
-                        rel="noreferrer" 
-                        className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all shadow-xl hover:scale-105 active:scale-95"
-                    >
-                        <i className="fas fa-directions text-2xl"></i>
-                        <Translate fr="Y aller (Google Maps)" en="Go there (Google Maps)" es="Ir allí (Google Maps)" de="Wegbeschreibung (Google Maps)" />
-                    </a>
+
+                {/* NOUVEAU: Section avec les 3 boutons GPS */}
+                <div className="mt-8 text-center bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                    <p className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">
+                        <Translate fr="Y aller avec :" en="Navigate with:" es="Navegar con:" de="Navigieren mit:" />
+                    </p>
+                    
+                    <div className="flex flex-col sm:flex-row justify-center gap-4">
+                        <a 
+                            href="https://waze.com/ul?ll=42.895292,0.062885&navigate=yes" 
+                            target="_blank" 
+                            rel="noreferrer" 
+                            className="flex items-center justify-center gap-3 bg-white border border-slate-200 text-slate-700 px-6 py-3.5 rounded-2xl font-bold hover:bg-slate-50 transition-all shadow-sm hover:shadow-md active:scale-95"
+                        >
+                            <img src="https://assets.persys.fr/BD/livret-d-accueil/images/logo/waze.png" alt="Waze" className="w-6 h-6 object-contain drop-shadow-sm" />
+                            <span>Waze</span>
+                        </a>
+
+                        <a 
+                            href="https://www.google.com/maps/dir/?api=1&destination=42.895292,0.062885" 
+                            target="_blank" 
+                            rel="noreferrer" 
+                            className="flex items-center justify-center gap-3 bg-white border border-slate-200 text-slate-700 px-6 py-3.5 rounded-2xl font-bold hover:bg-slate-50 transition-all shadow-sm hover:shadow-md active:scale-95"
+                        >
+                            <img src="https://assets.persys.fr/BD/livret-d-accueil/images/logo/google%20maps.webp" alt="Google Maps" className="w-6 h-6 object-contain drop-shadow-sm" />
+                            <span>Google Maps</span>
+                        </a>
+
+                        <a 
+                            href="http://maps.apple.com/?daddr=42.895292,0.062885" 
+                            target="_blank" 
+                            rel="noreferrer" 
+                            className="flex items-center justify-center gap-3 bg-white border border-slate-200 text-slate-700 px-6 py-3.5 rounded-2xl font-bold hover:bg-slate-50 transition-all shadow-sm hover:shadow-md active:scale-95"
+                        >
+                            <img src="https://assets.persys.fr/BD/livret-d-accueil/images/logo/Apple_Maps.png" alt="Apple Maps" className="w-6 h-6 object-contain drop-shadow-sm" />
+                            <span>Apple Maps</span>
+                        </a>
+                    </div>
                 </div>
+
             </div>
         </section>
     );

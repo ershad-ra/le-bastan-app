@@ -27,7 +27,6 @@ export default function Navbar({ toggleMenu }) {
 
     const isGroupActive = (sections) => sections.includes(activeSection);
 
-    // Grouping the menu items
     const menuGroups = [
         {
             id: 'accueil',
@@ -42,7 +41,7 @@ export default function Navbar({ toggleMenu }) {
             sections: ['logistique', 'consignes', 'documents'],
             items: [
                 { id: 'logistique', icon: 'fa-clock', fr: 'Arrivée/Départ', en: 'Check-in/out', es: 'Llegada/Salida', de: 'An-/Abreise' },
-                { id: 'consignes', icon: 'fa-hand-holding-heart', fr: 'Règles', en: 'Rules', es: 'Reglas', de: 'Regeln' },
+                { id: 'consignes', icon: 'fa-hand-holding-heart', fr: 'Modalités de séjour', en: 'Stay conditions', es: 'Condiciones de estancia', de: 'Aufenthaltsbedingungen' },
                 { id: 'documents', icon: 'fa-file-pdf', fr: 'Documents', en: 'Docs', es: 'Documentos', de: 'Dokumente' }
             ]
         },
@@ -96,7 +95,6 @@ export default function Navbar({ toggleMenu }) {
                 </div>
             </div>
             
-            {/* Desktop Navigation (Grouped) */}
             <div className="hidden sm:flex justify-center p-3 gap-2 max-w-6xl mx-auto px-4">
                 {menuGroups.map((group) => {
                     const active = isGroupActive(group.sections);
@@ -120,15 +118,14 @@ export default function Navbar({ toggleMenu }) {
                                 <i className="fas fa-chevron-down text-xs opacity-70"></i>
                             </button>
                             
-                            {/* Dropdown Menu */}
-                            <div className="absolute left-1/2 transform -translate-x-1/2 top-full mt-2 w-48 bg-white border border-slate-200 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
+                            <div className="absolute left-1/2 transform -translate-x-1/2 top-full mt-2 w-52 bg-white border border-slate-200 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
                                 {group.items.map(item => (
                                     <button 
                                         key={item.id}
                                         onClick={() => scrollTo(item.id)}
                                         className={`w-full text-left px-4 py-3 text-sm font-semibold hover:bg-blue-50 hover:text-blue-700 transition-colors flex items-center gap-3 ${activeSection === item.id ? 'bg-slate-50 text-blue-600' : 'text-slate-700'}`}
                                     >
-                                        <i className={`fas ${item.icon} w-4 text-center text-slate-400`}></i>
+                                        <i className={`fas ${item.icon} w-5 text-center text-slate-400`}></i>
                                         <Translate fr={item.fr} en={item.en} es={item.es} de={item.de} />
                                     </button>
                                 ))}

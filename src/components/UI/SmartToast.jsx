@@ -37,7 +37,6 @@ export default function SmartToast() {
             haloClass: 'halo-purple',
             target: 'podcasts',
             boxId: 'podcast-box',
-            // Updated to be an engaging question!
             title: { fr: "Curieux d'écouter nos secrets ?", en: "Curious to hear our secrets?", es: "¿Curioso por escuchar nuestros secretos?", de: "Neugierig auf unsere Geheimnisse?" },
             desc: { fr: "Écoutez nos guides audio personnels.", en: "Listen to our personal audio guides.", es: "Escucha nuestras guías de audio.", de: "Hören Sie unsere Audio-Guides." }
         }
@@ -53,7 +52,6 @@ export default function SmartToast() {
 
     useEffect(() => {
         const initialTimer = setTimeout(() => setIsVisible(true), 3500);
-        
         const rotationTimer = setInterval(() => {
             changeToast((currentIndex + 1) % toasts.length);
         }, 9000);
@@ -97,30 +95,34 @@ export default function SmartToast() {
     return (
         <div className={`fixed bottom-24 left-1/2 transform -translate-x-1/2 z-[100] transition-all duration-500 ease-out w-[95%] max-w-md ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0 pointer-events-none'}`}>
             <div 
-                className={`${currentToast.bgColor} backdrop-blur-md p-3 sm:p-4 rounded-2xl shadow-2xl border flex items-center justify-between gap-3 sm:gap-4 cursor-pointer transition-colors duration-500`} 
+                className={`${currentToast.bgColor} backdrop-blur-md p-2 sm:p-3 rounded-[1.25rem] shadow-2xl border flex items-center justify-between gap-2 sm:gap-3 cursor-pointer transition-colors duration-500`} 
                 onClick={handleToastClick}
             >
-                <div className={`${currentToast.iconColor} w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shrink-0 transition-colors duration-500 shadow-inner`}>
-                    <i className={`fas ${currentToast.icon} text-lg animate-pulse`}></i>
+                {/* Icône plus petite */}
+                <div className={`${currentToast.iconColor} w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0 transition-colors duration-500 shadow-inner ml-1`}>
+                    <i className={`fas ${currentToast.icon} text-sm sm:text-base animate-pulse`}></i>
                 </div>
                 
+                {/* Textes ajustés */}
                 <div className={`flex-1 transition-opacity duration-300 ${fade ? 'opacity-0' : 'opacity-100'}`}>
-                    <p className="text-sm sm:text-base font-bold text-slate-800 leading-tight mb-0.5">
+                    <p className="text-sm sm:text-[15px] font-bold text-slate-800 leading-tight mb-0.5">
                         <Translate fr={currentToast.title.fr} en={currentToast.title.en} es={currentToast.title.es} de={currentToast.title.de} />
                     </p>
-                    <p className="text-xs text-slate-600 font-medium">
+                    <p className="text-[11px] sm:text-xs text-slate-600 font-medium">
                         <Translate fr={currentToast.desc.fr} en={currentToast.desc.en} es={currentToast.desc.es} de={currentToast.desc.de} />
                     </p>
                 </div>
 
-                {/* Navigation and Close Controls */}
-                <div className="flex items-center gap-1 sm:gap-2 pl-2 border-l border-slate-300/50">
-                    <div className="flex flex-col gap-1">
-                        <button onClick={prevToast} className="text-slate-400 hover:text-slate-800 p-1 bg-white/50 rounded-md hover:bg-white transition-colors"><i className="fas fa-chevron-up text-[10px]"></i></button>
-                        <button onClick={nextToast} className="text-slate-400 hover:text-slate-800 p-1 bg-white/50 rounded-md hover:bg-white transition-colors"><i className="fas fa-chevron-down text-[10px]"></i></button>
-                    </div>
-                    <button onClick={(e) => { e.stopPropagation(); setIsVisible(false); }} className="text-slate-500 hover:text-slate-900 w-8 h-8 flex items-center justify-center rounded-full bg-white/50 hover:bg-white shadow-sm transition-colors ml-1">
-                        <i className="fas fa-times"></i>
+                {/* Navigation: Boutons ronds gauche/droite et bouton fermer */}
+                <div className="flex items-center gap-1 pl-1 border-l border-slate-300/50">
+                    <button onClick={prevToast} className="text-slate-500 hover:text-slate-800 w-7 h-7 flex items-center justify-center bg-white/60 rounded-full hover:bg-white transition-colors shadow-sm" aria-label="Previous notification">
+                        <i className="fas fa-chevron-left text-[10px]"></i>
+                    </button>
+                    <button onClick={nextToast} className="text-slate-500 hover:text-slate-800 w-7 h-7 flex items-center justify-center bg-white/60 rounded-full hover:bg-white transition-colors shadow-sm" aria-label="Next notification">
+                        <i className="fas fa-chevron-right text-[10px]"></i>
+                    </button>
+                    <button onClick={(e) => { e.stopPropagation(); setIsVisible(false); }} className="text-slate-500 hover:text-slate-900 w-7 h-7 flex items-center justify-center rounded-full bg-white/60 hover:bg-white shadow-sm transition-colors ml-1" aria-label="Close">
+                        <i className="fas fa-times text-xs"></i>
                     </button>
                 </div>
             </div>
