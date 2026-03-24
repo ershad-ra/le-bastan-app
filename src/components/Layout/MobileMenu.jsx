@@ -41,6 +41,9 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
                         <button onClick={() => scrollTo('documents')} className="text-left py-2.5 px-4 rounded-xl hover:bg-slate-50 font-semibold text-slate-700">
                             <i className="fas fa-file-pdf mr-3 text-blue-400 w-5 text-center"></i><Translate fr="Documents" en="Docs" es="Documentos" de="Dokumente" />
                         </button>
+                        <button onClick={() => scrollTo('bus')} className="text-left py-2.5 px-4 rounded-xl hover:bg-slate-50 font-semibold text-slate-700">
+                            <i className="fas fa-bus-alt mr-3 text-red-500 w-5 text-center"></i><Translate fr="Bus (Ligne 965)" en="Bus (Line 965)" es="Autobús (Línea 965)" de="Bus (Linie 965)" />
+                        </button>
                     </div>
 
                     {/* L'Appartement */}
@@ -64,7 +67,15 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
                             <i className="fas fa-headphones mr-3 text-purple-500 w-5 text-center"></i><Translate fr="Podcasts" en="Podcasts" es="Podcasts" de="Podcasts" />
                         </button>
                         <button onClick={() => scrollTo('autour')} className="text-left py-2.5 px-4 rounded-xl hover:bg-slate-50 font-semibold text-slate-700">
-                            <i className="fas fa-mountain mr-3 text-purple-500 w-5 text-center"></i><Translate fr="Explorer Barèges" en="Explore Barèges" es="Explorar Barèges" de="Barèges erkunden" />
+                            {/* Modifié de Explorer Barèges à Météo */}
+                            <i className="fas fa-cloud-sun mr-3 text-purple-500 w-5 text-center"></i><Translate fr="Météo" en="Weather" es="El Tiempo" de="Wetter" />
+                        </button>
+                        <button onClick={() => scrollTo('webcams')} className="text-left py-2.5 px-4 rounded-xl hover:bg-slate-50 font-semibold text-slate-700">
+                            <i className="fas fa-video mr-3 text-purple-500 w-5 text-center"></i><Translate fr="Webcams & Pistes" en="Webcams & Slopes" es="Webcams y Pistas" de="Webcams & Pisten" />
+                        </button>
+                        {/* NOUVEAU LIEN : Nos adresses */}
+                        <button onClick={() => scrollTo('adresses')} className="text-left py-2.5 px-4 rounded-xl hover:bg-slate-50 font-semibold text-slate-700">
+                            <i className="fas fa-map-marked-alt mr-3 text-purple-500 w-5 text-center"></i><Translate fr="Nos adresses" en="Our places" es="Nuestros lugares" de="Unsere Orte" />
                         </button>
                     </div>
 

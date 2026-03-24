@@ -11,7 +11,7 @@ import LogisticsSection from './components/Sections/LogisticsSection';
 import AmenitiesSection from './components/Sections/AmenitiesSection';
 import HeatingSection from './components/Sections/HeatingSection';
 import EntertainmentSection from './components/Sections/EntertainmentSection';
-import PodcastSection from './components/Sections/PodcastSection'; // NEW IMPORT
+import PodcastSection from './components/Sections/PodcastSection';
 import ExploreSection from './components/Sections/ExploreSection';
 import RulesSection from './components/Sections/RulesSection';
 import DocumentsSection from './components/Sections/DocumentsSection';
@@ -34,7 +34,7 @@ export default function App() {
         <AmenitiesSection />
         <HeatingSection />
         <EntertainmentSection />
-        <PodcastSection /> {/* RENDERED HERE */}
+        <PodcastSection />
         <ExploreSection />
         <RulesSection />
         <DocumentsSection />

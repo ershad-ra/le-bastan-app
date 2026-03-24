@@ -28,7 +28,7 @@ export default function EntertainmentSection() {
                         <div className="space-y-6 relative z-10">
                             <div>
                                 <p className="text-blue-100 text-xs uppercase font-bold tracking-widest mb-1">Réseau / Network</p>
-                                <p className="text-xl font-mono font-bold">BAREGES 202 5GHZ</p>
+                                <p className="text-xl font-mono font-bold">lebastan</p>
                             </div>
                             
                             <RevealBox className="bg-blue-700/50 p-4 rounded-2xl border border-blue-400">
@@ -77,7 +77,7 @@ export default function EntertainmentSection() {
                                 <p className="text-xs uppercase font-bold text-slate-400 tracking-widest mb-2">
                                     <Translate fr="L’accès s’effectue directement via le profil :" en="Access is direct via the profile:" es="El acceso es directo mediante el perfil:" de="Der Zugriff erfolgt direkt über das Profil:" />
                                 </p>
-                                <p className="text-2xl sm:text-3xl font-black text-white tracking-wider font-mono">Hotes-Guest-Anfitriones</p>
+                                <p className="text-2xl sm:text-3xl font-black text-white tracking-wider font-mono">hotes-Invitada-Guest</p>
                             </div>
 
                             <p className="text-sm text-red-400 font-medium flex items-center justify-center bg-red-950/30 p-3 rounded-lg border border-red-900/50">

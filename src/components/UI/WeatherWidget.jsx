@@ -33,32 +33,6 @@ const getWeatherTheme = (code) => {
     return themes[code] || 'from-blue-600 to-cyan-500'; 
 };
 
-const VisualNpyLink = () => (
-    <a href="https://www.n-py.com/fr/grand-tourmalet" target="_blank" rel="noreferrer" className="group relative block w-full rounded-2xl overflow-hidden shadow-lg border border-white/20 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-slate-900 mt-4">
-        <div className="absolute inset-0 bg-[url('https://assets.persys.fr/BD/livret-d-accueil/images/outside-the-apartment.jpeg')] bg-cover bg-center opacity-50 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 ease-out"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-transparent"></div>
-        
-        <div className="relative z-10 p-5 flex items-center justify-between">
-            <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-inner group-hover:bg-blue-500/40 transition-colors duration-300">
-                    <i className="fas fa-video text-white text-lg"></i>
-                </div>
-                <div>
-                    <h4 className="text-white font-bold text-lg leading-tight tracking-wide drop-shadow-md">
-                        <Translate fr="Webcams & Pistes" en="Webcams & Slopes" es="Webcams y Pistas" de="Webcams & Pisten" />
-                    </h4>
-                    <p className="text-blue-200 text-[10px] font-bold uppercase tracking-widest mt-0.5 drop-shadow-md">
-                        <Translate fr="En direct du Grand Tourmalet" en="Live from Grand Tourmalet" es="En vivo desde Grand Tourmalet" de="Live vom Grand Tourmalet" />
-                    </p>
-                </div>
-            </div>
-            <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-white group-hover:text-blue-600 transition-all duration-300 transform group-hover:translate-x-1">
-                <i className="fas fa-arrow-right"></i>
-            </div>
-        </div>
-    </a>
-);
-
 export default function WeatherWidget() {
     const { language } = useContext(AppContext);
     const [weather, setWeather] = useState(null);
@@ -80,8 +54,9 @@ export default function WeatherWidget() {
         return <div id="meteo-box" className="animate-pulse bg-slate-200 h-96 rounded-3xl w-full mb-8 border border-slate-300"></div>;
     }
 
+    // Si pas de météo, on ne retourne rien (la section webcams est indépendante maintenant)
     if (!weather || !weather.current || !weather.forecast) {
-        return <div id="meteo-box" className="mb-8"><VisualNpyLink /></div>;
+        return null; 
     }
 
     const current = weather.current;
@@ -98,7 +73,6 @@ export default function WeatherWidget() {
                         <i className="fas fa-map-marker-alt text-xl opacity-80"></i> Barèges
                     </h3>
                     
-                    {/* Le Disclaimer clair mais élégant */}
                     <p className="text-[10px] sm:text-xs text-white/75 mt-1.5 font-medium tracking-wide drop-shadow-sm flex items-center justify-center gap-1.5">
                         <i className="fas fa-info-circle text-white/60"></i>
                         <Translate 
@@ -189,9 +163,6 @@ export default function WeatherWidget() {
                         </div>
                     </div>
                 </div>
-
-                {/* 5. N-PY LINK (The perfect call-to-action right below the disclaimer) */}
-                <VisualNpyLink />
 
             </div>
         </div>

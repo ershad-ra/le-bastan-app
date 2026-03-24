@@ -1,72 +1,96 @@
 import { useState, useRef, useEffect } from 'react';
 
-export default function AudioPlayer({ src, title, icon = "fa-microphone" }) {
+export default function AudioPlayer({ src, title, icon = "fa-play" }) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
-    const [timeStr, setTimeStr] = useState("0:00");
     const audioRef = useRef(null);
-    const progressContainerRef = useRef(null);
 
-    const toggleAudio = () => {
+    useEffect(() => {
+        const audioEl = audioRef.current;
+        if (!audioEl) return;
+
+        // Ces écouteurs (listeners) natifs sont la clé ! 
+        // Ils permettent au bouton de se mettre à jour même si le lecteur
+        // est mis en pause "à distance" par un autre lecteur.
+        const handlePlay = () => setIsPlaying(true);
+        const handlePause = () => setIsPlaying(false);
+        const handleEnded = () => {
+            setIsPlaying(false);
+            setProgress(0);
+        };
+        const handleTimeUpdate = () => {
+            if (audioEl.duration) {
+                setProgress((audioEl.currentTime / audioEl.duration) * 100);
+            }
+        };
+
+        audioEl.addEventListener('play', handlePlay);
+        audioEl.addEventListener('pause', handlePause);
+        audioEl.addEventListener('ended', handleEnded);
+        audioEl.addEventListener('timeupdate', handleTimeUpdate);
+
+        return () => {
+            audioEl.removeEventListener('play', handlePlay);
+            audioEl.removeEventListener('pause', handlePause);
+            audioEl.removeEventListener('ended', handleEnded);
+            audioEl.removeEventListener('timeupdate', handleTimeUpdate);
+        };
+    }, []);
+
+    const togglePlay = () => {
         if (isPlaying) {
             audioRef.current.pause();
         } else {
+            // EXCLUSIVITÉ : Avant de jouer, on met en pause TOUS les autres audios de la page
+            const allAudios = document.querySelectorAll('audio');
+            allAudios.forEach(a => {
+                if (a !== audioRef.current && !a.paused) {
+                    a.pause();
+                }
+            });
+            
+            // Puis on lance cet audio
             audioRef.current.play();
         }
-        setIsPlaying(!isPlaying);
     };
 
-    const handleTimeUpdate = () => {
-        const current = audioRef.current.currentTime;
-        const duration = audioRef.current.duration || 0;
-        const percent = duration > 0 ? (current / duration) * 100 : 0;
-        setProgress(percent);
-        
-        const min = Math.floor(current / 60);
-        const sec = Math.floor(current % 60);
-        setTimeStr(`${min}:${sec.toString().padStart(2, '0')}`);
-    };
-
-    const handleEnded = () => {
-        setIsPlaying(false);
-        setProgress(0);
-        setTimeStr("0:00");
-    };
-
-    const seekAudio = (e) => {
-        if (!audioRef.current.duration) return;
-        const rect = progressContainerRef.current.getBoundingClientRect();
-        const pos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-        audioRef.current.currentTime = pos * audioRef.current.duration;
+    const handleProgressClick = (e) => {
+        if (!audioRef.current || !audioRef.current.duration) return;
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const percentage = x / rect.width;
+        audioRef.current.currentTime = percentage * audioRef.current.duration;
     };
 
     return (
-        <div className="bg-blue-50 border border-blue-100 p-3 sm:p-4 rounded-2xl shadow-sm flex items-center gap-3 sm:gap-4 w-full max-w-full relative transition-colors duration-300">
+        <div className="flex-1 w-full bg-white border border-slate-200 rounded-xl p-2 sm:p-3 shadow-sm flex items-center gap-3 hover:shadow-md transition-shadow">
+            {/* Balise native invisible */}
+            <audio ref={audioRef} src={src} preload="metadata" />
+            
+            {/* Bouton Play/Pause */}
             <button 
-                onClick={toggleAudio} 
-                className={`w-10 h-10 shrink-0 ${isPlaying ? 'bg-slate-600' : 'bg-blue-600 animate-pulse'} text-white rounded-full flex items-center justify-center text-sm hover:scale-105 transition-all shadow-md outline-none cursor-pointer focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-blue-50`}
+                onClick={togglePlay}
+                className="w-10 h-10 shrink-0 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center transition-colors shadow-sm focus:outline-none active:scale-95"
                 aria-label={isPlaying ? "Pause" : "Play"}
             >
-                <i className={`fas ${isPlaying ? 'fa-pause' : 'fa-play ml-1'}`}></i>
+                <i className={`fas ${isPlaying ? 'fa-pause' : icon} ${!isPlaying && icon === 'fa-play' ? 'ml-0.5' : ''}`}></i>
             </button>
-            
-            <div className="flex-1 flex flex-col justify-center min-w-0">
-                <div className="flex justify-between items-start mb-1.5 gap-2">
-                    {/* FIX: Removed truncate, allowed text to wrap normally */}
-                    <span className="text-[10px] sm:text-xs font-bold text-blue-900 uppercase tracking-widest flex-1 leading-snug break-words">
-                        <i className={`fas ${icon} text-blue-500 mr-1.5`}></i> 
-                        {title}
-                    </span>
-                    <span className="text-[10px] sm:text-xs font-bold text-blue-800/60 font-mono shrink-0 mt-0.5">{timeStr}</span>
+
+            {/* Titre et Barre de progression */}
+            <div className="flex-1 min-w-0">
+                <div className="text-sm font-bold text-slate-800 truncate mb-1.5">
+                    {title}
                 </div>
-                <div className="w-full h-6 flex items-center cursor-pointer relative" ref={progressContainerRef} onClick={seekAudio}>
-                    <div className="w-full bg-blue-200 rounded-full h-1.5 absolute"></div>
-                    <div className="bg-blue-600 h-1.5 rounded-full absolute top-1/2 -translate-y-1/2 left-0 pointer-events-none" style={{ width: `${progress}%` }}></div>
-                    <div className="w-3 h-3 bg-blue-600 rounded-full absolute top-1/2 -translate-y-1/2 -ml-1.5 shadow" style={{ left: `${progress}%` }}></div>
+                <div 
+                    className="h-2 bg-slate-100 rounded-full cursor-pointer relative overflow-hidden group"
+                    onClick={handleProgressClick}
+                >
+                    <div 
+                        className="absolute top-0 left-0 h-full bg-blue-500 transition-all duration-100 ease-linear rounded-full group-hover:bg-blue-600"
+                        style={{ width: `${progress}%` }}
+                    ></div>
                 </div>
             </div>
-            
-            <audio ref={audioRef} src={src} onTimeUpdate={handleTimeUpdate} onEnded={handleEnded} />
         </div>
     );
 }

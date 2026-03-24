@@ -38,11 +38,12 @@ export default function Navbar({ toggleMenu }) {
             id: 'sejour',
             type: 'dropdown',
             fr: 'Le Séjour', en: 'The Stay', es: 'La Estancia', de: 'Der Aufenthalt',
-            sections: ['logistique', 'consignes', 'documents'],
+            sections: ['logistique', 'consignes', 'documents', 'bus'],
             items: [
                 { id: 'logistique', icon: 'fa-clock', fr: 'Arrivée/Départ', en: 'Check-in/out', es: 'Llegada/Salida', de: 'An-/Abreise' },
                 { id: 'consignes', icon: 'fa-hand-holding-heart', fr: 'Modalités de séjour', en: 'Stay conditions', es: 'Condiciones de estancia', de: 'Aufenthaltsbedingungen' },
-                { id: 'documents', icon: 'fa-file-pdf', fr: 'Documents', en: 'Docs', es: 'Documentos', de: 'Dokumente' }
+                { id: 'documents', icon: 'fa-file-pdf', fr: 'Documents', en: 'Docs', es: 'Documentos', de: 'Dokumente' },
+                { id: 'bus', icon: 'fa-bus-alt', fr: 'Bus (Ligne 965)', en: 'Bus (Line 965)', es: 'Autobús (Línea 965)', de: 'Bus (Linie 965)' }
             ]
         },
         {
@@ -60,10 +61,12 @@ export default function Navbar({ toggleMenu }) {
             id: 'decouverte',
             type: 'dropdown',
             fr: 'Découverte', en: 'Discover', es: 'Descubrir', de: 'Entdecken',
-            sections: ['podcasts', 'autour'],
+            sections: ['podcasts', 'autour', 'webcams', 'adresses'], // 'adresses' ajouté
             items: [
                 { id: 'podcasts', icon: 'fa-headphones', fr: 'Podcasts', en: 'Podcasts', es: 'Podcasts', de: 'Podcasts' },
-                { id: 'autour', icon: 'fa-mountain', fr: 'Barèges', en: 'Barèges', es: 'Barèges', de: 'Barèges' }
+                { id: 'autour', icon: 'fa-cloud-sun', fr: 'Météo', en: 'Weather', es: 'El Tiempo', de: 'Wetter' }, // Modifié ici
+                { id: 'webcams', icon: 'fa-video', fr: 'Webcams & Pistes', en: 'Webcams & Slopes', es: 'Webcams y Pistas', de: 'Webcams & Pisten' },
+                { id: 'adresses', icon: 'fa-map-marked-alt', fr: 'Nos adresses', en: 'Our places', es: 'Nuestros lugares', de: 'Unsere Orte' } // Nouveau lien ici
             ]
         },
         {
@@ -118,7 +121,7 @@ export default function Navbar({ toggleMenu }) {
                                 <i className="fas fa-chevron-down text-xs opacity-70"></i>
                             </button>
                             
-                            <div className="absolute left-1/2 transform -translate-x-1/2 top-full mt-2 w-52 bg-white border border-slate-200 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
+                            <div className="absolute left-1/2 transform -translate-x-1/2 top-full mt-2 w-56 bg-white border border-slate-200 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
                                 {group.items.map(item => (
                                     <button 
                                         key={item.id}

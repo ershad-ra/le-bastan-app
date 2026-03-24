@@ -1,83 +1,105 @@
-import { useState } from 'react';
 import Translate from '../UI/Translate';
 import AudioPlayer from '../UI/AudioPlayer';
 
 export default function PodcastSection() {
-    const [isOpen, setIsOpen] = useState(false);
-
     const podcasts = [
         {
             id: 1,
-            title: { fr: "L'histoire de Barèges & ses Thermes", en: "History of Barèges & its Thermal Baths", es: "Historia de Barèges y sus Termas", de: "Geschichte von Barèges & seinen Thermen" },
-            src: "https://assets.persys.fr/BD/livret-d-accueil/audio/L_hospitalite_millimetree_de_l_appartement_202.mp3"
+            title: { 
+                fr: "Barèges, le bastion de la médecine militaire", 
+                en: "Barèges, the bastion of military medicine", 
+                es: "Barèges, el bastión de la medicina militar", 
+                de: "Barèges, die Bastion der Militärmedizin" 
+            },
+            desc: { 
+                fr: "Découvrez l'histoire fascinante de la station thermale.", 
+                en: "Discover the fascinating history of the thermal spa.", 
+                es: "Descubre la fascinante historia del balneario.", 
+                de: "Entdecken Sie die faszinierende Geschichte des Thermalbads." 
+            },
+            src: "https://assets.persys.fr/BD/livret-d-accueil/audio/Barèges_le_bastion_de_la_médecine_militaire.mp3",
+            icon: "fa-landmark",
+            color: "text-amber-600 bg-amber-100"
         },
         {
             id: 2,
-            title: { fr: "Randonnée : Les secrets du Néouvielle", en: "Hiking: Secrets of Néouvielle", es: "Senderismo: Secretos de Néouvielle", de: "Wandern: Geheimnisse von Néouvielle" },
-            src: "https://assets.persys.fr/BD/livret-d-accueil/audio/L_hospitalite_millimetree_de_l_appartement_202.mp3"
+            title: { 
+                fr: "Du ski aux étoiles au Grand Tourmalet", 
+                en: "From skiing to the stars at Grand Tourmalet", 
+                es: "Del esquí a las estrellas en el Grand Tourmalet", 
+                de: "Vom Skifahren zu den Sternen am Grand Tourmalet" 
+            },
+            desc: { 
+                fr: "L'épopée du Pic du Midi et des sports d'hiver.", 
+                en: "The epic of Pic du Midi and winter sports.", 
+                es: "La epopeya del Pic del Midi y los deportes de invierno.", 
+                de: "Das Epos des Pic du Midi und des Wintersports." 
+            },
+            src: "https://assets.persys.fr/BD/livret-d-accueil/audio/Du_ski_aux_étoiles_au_Grand_Tourmalet.mp3",
+            icon: "fa-snowflake",
+            color: "text-blue-600 bg-blue-100"
         },
         {
             id: 3,
-            title: { fr: "Ski au Grand Tourmalet : Guide pratique", en: "Skiing Grand Tourmalet: Practical Guide", es: "Esquí en Grand Tourmalet: Guía práctica", de: "Skifahren im Grand Tourmalet: Praktischer Leitfaden" },
-            src: "https://assets.persys.fr/BD/livret-d-accueil/audio/L_hospitalite_millimetree_de_l_appartement_202.mp3"
+            title: { 
+                fr: "L'empire cristallin secret de Barèges", 
+                en: "The secret crystalline empire of Barèges", 
+                es: "El imperio cristalino secreto de Barèges", 
+                de: "Das geheime kristalline Imperium von Barèges" 
+            },
+            desc: { 
+                fr: "Plongez dans les mystères géologiques de la vallée.", 
+                en: "Dive into the geological mysteries of the valley.", 
+                es: "Sumérgete en los misterios geológicos del valle.", 
+                de: "Tauchen Sie ein in die geologischen Geheimnisse des Tals." 
+            },
+            src: "https://assets.persys.fr/BD/livret-d-accueil/audio/L_empire_cristallin_secret_de_Barèges.mp3",
+            icon: "fa-gem",
+            color: "text-purple-600 bg-purple-100"
         }
     ];
 
     return (
-        <section id="podcasts" className="space-y-8 relative">
-            
-            {/* NEW: Added 'relative' to section and updated box styles for high visibility */}
-            <div 
-                id="podcast-box" 
-                className="rounded-3xl shadow-xl transition-all duration-300 overflow-hidden relative group border-2 border-purple-300 bg-gradient-to-br from-purple-50 to-white"
-            >
-                {/* Visual Accent decoration */}
-                <div className="absolute -top-10 -right-10 w-32 h-32 bg-purple-200/50 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition-transform duration-500"></div>
-
-                {/* Clickable Header */}
-                <button 
-                    id="podcast-toggle-btn"
-                    onClick={() => setIsOpen(!isOpen)}
-                    aria-expanded={isOpen}
-                    className="w-full p-6 md:p-8 flex items-center justify-between cursor-pointer hover:bg-purple-100/50 transition-colors duration-300 text-left focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-inset rounded-t-3xl"
-                >
-                    <div className="flex items-center gap-4 relative z-10">
-                        <div className="bg-purple-600 text-white w-14 h-14 rounded-2xl flex items-center justify-center text-2xl shadow-lg shrink-0 group-hover:scale-105 transition-transform duration-300">
-                            <i className="fas fa-headphones animate-pulse"></i>
-                        </div>
-                        <div>
-                            {/* "NEW" Badge */}
-                            <span className="inline-block bg-emerald-500 text-white text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-1.5 shadow-sm">
-                                <Translate fr="Nouveau" en="New" es="Nuevo" de="Neu" />
-                            </span>
-                            <h2 className="text-2xl md:text-3xl font-extrabold text-purple-950 tracking-tight">
-                                <Translate fr="Podcasts Exclusifs" en="Exclusive Podcasts" es="Podcasts Exclusivos" de="Exklusive Podcasts" />
-                            </h2>
-                            <p className="text-sm md:text-base text-purple-800 mt-1 font-medium">
-                                <Translate fr="Écoutez l'âme de Barèges, juste pour vous." en="Listen to the soul of Barèges, just for you." es="Escucha el alma de Barèges, solo para ti." de="Hören Sie die Seele von Barèges, nur für Sie." />
-                            </p>
-                        </div>
+        <section id="podcasts" className="space-y-6 pt-4">
+            <div id="podcast-box" className="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-slate-200 transition-colors duration-300">
+                <div className="flex items-center gap-3 mb-6">
+                    <div className="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center text-purple-600 text-xl shadow-inner">
+                        <i className="fas fa-headphones-alt"></i>
                     </div>
-                    <div className="text-purple-400 p-2 rounded-full bg-white shadow-inner ml-4 shrink-0">
-                        <i className={`fas fa-chevron-down text-xl transition-transform duration-300 ${isOpen ? 'rotate-180 text-purple-600' : ''}`}></i>
-                    </div>
-                </button>
-
-                {/* Collapsible Content */}
-                <div className={`transition-all duration-500 ease-in-out ${isOpen ? 'max-h-[1000px] opacity-100 border-t border-purple-100' : 'max-h-0 opacity-0 pointer-events-none'}`}>
-                    <div className="p-6 md:p-8 bg-white/50 space-y-5">
-                        {podcasts.map((podcast) => (
-                            <div key={podcast.id} className="bg-white p-2 rounded-2xl border border-slate-200 shadow-sm transition-colors duration-300 hover:border-purple-200 hover:shadow-md">
-                                <AudioPlayer 
-                                    src={podcast.src} 
-                                    title={<Translate fr={podcast.title.fr} en={podcast.title.en} es={podcast.title.es} de={podcast.title.de} />} 
-                                    icon="fa-podcast"
-                                />
-                            </div>
-                        ))}
+                    <div>
+                        <h3 className="font-bold text-xl text-slate-800">
+                            <Translate fr="Nos Podcasts" en="Our Podcasts" es="Nuestros Podcasts" de="Unsere Podcasts" />
+                        </h3>
+                        <p className="text-sm text-slate-500 font-medium">
+                            <Translate fr="Écoutez les histoires secrètes de la vallée" en="Listen to the secret stories of the valley" es="Escucha las historias secretas del valle" de="Hören Sie die geheimen Geschichten des Tals" />
+                        </p>
                     </div>
                 </div>
 
+                <div className="space-y-4">
+                    {podcasts.map((podcast) => (
+                        <div key={podcast.id} className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-100 hover:border-purple-200 hover:shadow-md transition-all duration-300">
+                            <div className="flex items-start sm:items-center gap-4 flex-col sm:flex-row mb-4 sm:mb-0">
+                                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-sm ${podcast.color}`}>
+                                    <i className={`fas ${podcast.icon}`}></i>
+                                </div>
+                                <div className="flex-1 w-full">
+                                    <h4 className="font-bold text-slate-800 text-sm sm:text-base leading-tight mb-1">
+                                        <Translate fr={podcast.title.fr} en={podcast.title.en} es={podcast.title.es} de={podcast.title.de} />
+                                    </h4>
+                                    <p className="text-xs text-slate-500 font-medium mb-3 sm:mb-2">
+                                        <Translate fr={podcast.desc.fr} en={podcast.desc.en} es={podcast.desc.es} de={podcast.desc.de} />
+                                    </p>
+                                    <AudioPlayer 
+                                        src={podcast.src} 
+                                        title={<Translate fr="Écouter l'épisode" en="Listen to episode" es="Escuchar episodio" de="Episode anhören" />} 
+                                        icon="fa-play"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
         </section>
     );

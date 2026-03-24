@@ -1,18 +1,23 @@
 import Translate from '../UI/Translate';
 import WeatherWidget from '../UI/WeatherWidget';
+import WebcamSection from './WebcamSection'; 
 
 export default function ExploreSection() {
     return (
-        <section id="autour" className="space-y-8">
-            <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 transition-colors duration-300">
+        <section id="autour" className="space-y-8 pt-4 scroll-mt-24">
+            <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-slate-200 transition-colors duration-300">
                 <h2 className="text-2xl font-bold mb-6 text-blue-900">
                     <Translate fr="Explorer Barèges" en="Explore Barèges" es="Explorar Barèges" de="Barèges erkunden" />
                 </h2>
                 
-                {/* This will render the Live Weather OR the fallback static N-PY block */}
+                {/* 1. WEATHER WIDGET */}
                 <WeatherWidget />
 
-                <div className="mb-8">
+                {/* 2. WEBCAM SECTION */}
+                <WebcamSection />
+
+                {/* 3. MAP IMAGE & ADRESSES (L'ancre 'adresses' est ajoutée ici) */}
+                <div id="adresses" className="mb-8 mt-8 scroll-mt-24">
                     <img src="https://assets.persys.fr/BD/livret-d-accueil/images/plan-du-centre-ville.png" className="w-full h-auto rounded-2xl shadow-sm border border-slate-200" alt="Ville" />
                 </div>
                 
